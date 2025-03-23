@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginView: View {
     
-    @StateObject var viewMOdel
-        
+    @StateObject var viewModel = LoginViewModel()
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -23,34 +23,36 @@ struct LoginView: View {
                 
                 // Login Form
                 Form {
-                    TextField("Email Address", text: $email)
+                    TextField("Email Address", text: $viewModel.email)
                         .textFieldStyle(DefaultTextFieldStyle())
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
                     
                     
-                    SecureField("Password", text: $password)
+                    SecureField("Password", text: $viewModel.password)
                         .textFieldStyle(DefaultTextFieldStyle())
                     
-                    TLButtonView(title: "Log In", backgrundColor: Color.blue) {
-                        // Attempt log in
+                    TLButtonView(title: "Log In", backgroundColor: Color.blue) {
+                        viewModel.login()
                     }
                     
+                    // If the login details are empty then pop-up an error message
+                    if !viewModel.errorMessage.isEmpty {
+                        Text(viewModel.errorMessage)
+                            .foregroundColor(Color.red)
+                    }
                 }
-                
-                
+            
                 // Create Account
                 VStack {
-                    Text("New aroud here?")
+                    Text("New around here?")
                     NavigationLink(
                         "Create an account",
                         destination: RegisterView()
                     )
                 }
                 .padding(.bottom, 50)
-                
-                Spacer()
             }
         }
     }
