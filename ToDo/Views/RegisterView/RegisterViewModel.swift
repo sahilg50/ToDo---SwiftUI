@@ -10,28 +10,27 @@ import FirebaseAuth
 import Foundation
 
 class RegisterViewModel: ObservableObject {
-    @Published var name = ""
-    @Published var email = ""
-    @Published var password = ""
-    @Published var errorMessage = ""
+    @Published var name: String = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var errorMessage: String = ""
     
     init() {}
     
-    // Register the user
+    // Registers the user
     func register() {
         errorMessage = ""
 
-        // Validate name, email, and password else return error message
         guard validate() else { return }
         
-        // Asynchronously try to create the user. This avoids UI from freezing
+        // Asynchronously tries to create the user. This avoids UI from freezing
         Task {
             do {
                 let result = try await Auth.auth().createUser(withEmail: email, password: password)
                 
                 let userId = result.user.uid
-                
                 insertUserRecord(ID: userId)
+                
                 print("User created successfully: \(userId)")
                 
             } catch {
@@ -40,7 +39,7 @@ class RegisterViewModel: ObservableObject {
         }
     }
     
-    // Insert the user record into firestore DB
+    // Inserts the user record into firestore DB
     private func insertUserRecord(ID: String){
         let newUser = User(ID: ID, name: name, email: email, joined: Date())
         
@@ -52,7 +51,7 @@ class RegisterViewModel: ObservableObject {
         
     }
     
-    // Validate the registration details.
+    // Validates the registration details
     private func validate() -> Bool {
     
         guard

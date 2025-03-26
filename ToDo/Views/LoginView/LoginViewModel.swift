@@ -9,19 +9,20 @@ import FirebaseAuth
 import Foundation
 
 final class LoginViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
-    @Published var errorMessage = ""
+    @Published var email: String = ""
+    @Published var password: String = ""
+    @Published var errorMessage: String = ""
     
     init() {}
     
+    // Logs-in with email and password
     func login() {
         guard validate() else { return }
         
-        // Try log in
         Auth.auth().signIn(withEmail: email, password: password)
     }
     
+    // Validates the login details
     private func validate() -> Bool {
         errorMessage = ""
         
@@ -43,3 +44,4 @@ final class LoginViewModel: ObservableObject {
         return true
     }
 }
+

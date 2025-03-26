@@ -25,7 +25,6 @@ struct RegisterView: View {
                 TextField("Full Name", text: $viewModel.name)
                     .textFieldStyle(DefaultTextFieldStyle())
                     .onChange(of: viewModel.name) {
-                        print(viewModel.name)
                         viewModel.errorMessage = ""
                     }
                 
@@ -35,14 +34,12 @@ struct RegisterView: View {
                     .autocapitalization(.none)
                     .disableAutocorrection(true)
                     .onChange(of: viewModel.email) {
-                        print(viewModel.errorMessage)
                         viewModel.errorMessage = ""
                     }
                 
                 SecureField("Password", text: $viewModel.password)
                     .textFieldStyle(DefaultTextFieldStyle())
                     .onChange(of: viewModel.password) {
-                        print(viewModel.password)
                         viewModel.errorMessage = ""
                     }
                 
