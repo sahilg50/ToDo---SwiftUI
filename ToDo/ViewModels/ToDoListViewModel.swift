@@ -34,12 +34,16 @@ class ToDoListViewModel: ObservableObject {
                 
                 let title = data["title"] as? String ?? ""
                 let isDone = data["isDone"] as? Bool ?? false
+                let dueDate = (data["dueDate"] as? Timestamp)?.dateValue() ?? Date.distantPast
+                let createdDate = (data["createdDate"] as? Timestamp)?.dateValue() ?? Date.distantPast
+                
+                print(title, dueDate)
                 
                 return ToDoListItemModel(
                     id: queryDocumentSnapshot.documentID,
                     title: title,
-                    dueDate: Date(),
-                    createdDate: Date(),
+                    dueDate: dueDate,
+                    createdDate: createdDate,
                     isDone: isDone
                 )
             }

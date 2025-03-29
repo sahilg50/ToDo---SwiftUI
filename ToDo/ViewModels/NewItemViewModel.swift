@@ -26,10 +26,10 @@ class NewItemViewModel: ObservableObject {
         // Create Model
         let itemId = UUID().uuidString
         let newItem = ToDoListItemModel(id: itemId,
-                                   title: title,
-                                   dueDate: dueDate,
-                                   createdDate: Date(),
-                                   isDone: false)
+                                        title: title,
+                                        dueDate: dueDate,
+                                        createdDate: Date(),
+                                        isDone: false)
         
         // Save Model
         let db = Firestore.firestore()
@@ -37,7 +37,13 @@ class NewItemViewModel: ObservableObject {
             .document(userId)
             .collection("todos")
             .document(itemId)
-            .setData(newItem.asDictionary())
+            .setData([
+                "id": newItem.id,
+                "title": newItem.title,
+                "dueDate": Timestamp(date: newItem.dueDate),
+                "createdDate": Timestamp(date: newItem.createdDate),
+                "isDone": newItem.isDone
+            ])
     }
     
     // Validates if all the details for to-do item is saved
