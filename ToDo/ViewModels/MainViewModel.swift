@@ -14,14 +14,13 @@ class MainViewModel: ObservableObject {
     
     init() {
         self.handler = Auth.auth().addStateDidChangeListener {
-                [weak self] _, user in DispatchQueue.main.async {
+            [weak self] _, user in DispatchQueue.main.async {
                 self?.currentUserId = user?.uid ?? ""
-                }
+            }
         }
     }
     
     public var isSignedIn: Bool {
-        print(self.currentUserId)
         return Auth.auth().currentUser != nil
     }
 }

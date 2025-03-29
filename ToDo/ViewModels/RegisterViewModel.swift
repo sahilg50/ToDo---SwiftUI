@@ -41,7 +41,12 @@ class RegisterViewModel: ObservableObject {
     
     // Inserts the user record into firestore DB
     private func insertUserRecord(ID: String){
-        let newUser = User(ID: ID, name: name, email: email, joined: Date())
+        let newUser = UserModel(
+            ID: ID,
+            name: name,
+            email: email,
+            joined: Date()
+        )
         
         let db = Firestore.firestore()
         

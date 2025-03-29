@@ -1,18 +1,22 @@
-//
-//  ToDoListItemViewModel.swift
-//  Landmarks
-//
-//  Created by Sahil Gupta on 18/03/25.
-//
+import Foundation
+import FirebaseFirestore
 
-import SwiftUI
-
-struct ToDoListItemViewModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class ToDoListItemViewModel: ObservableObject {
+    private var db = Firestore.firestore()
+    
+    init() {}
+    
+    func toggleIsDone(userId: String, toDoListItem: ToDoListItemModel) {
+        
+        var toDoListItemCopy = toDoListItem
+        toDoListItemCopy.isDone.toggle()
+        
+        
+        db.collection("users")
+            .document(userId)
+            .collection("todos")
+            .document(toDoListItem.id)
+            .setData(toDoListItemCopy.asDictionary())
     }
 }
 
-#Preview {
-    ToDoListItemViewModel()
-}
