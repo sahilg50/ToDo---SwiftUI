@@ -8,15 +8,11 @@ class ToDoListItemViewModel: ObservableObject {
     
     func toggleIsDone(userId: String, toDoListItem: ToDoListItemModel) {
         
-        var toDoListItemCopy = toDoListItem
-        toDoListItemCopy.isDone.toggle()
-        
-        
         db.collection("users")
             .document(userId)
             .collection("todos")
             .document(toDoListItem.id)
-            .setData(toDoListItemCopy.asDictionary())
+            .updateData(["isDone": !toDoListItem.isDone])
     }
 }
 

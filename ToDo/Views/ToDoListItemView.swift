@@ -15,12 +15,14 @@ struct ToDoListItemView: View {
                     .font(.footnote)
                     .foregroundColor(Color(.secondaryLabel))
             }
+            
             Spacer()
             
             Button {
                 viewModel.toggleIsDone(userId: userId, toDoListItem: toDoListItem)
             } label: {
                 Image(systemName: toDoListItem.isDone ? "checkmark.circle.fill" : "circle")
+                    .foregroundColor(.blue)
             }
         }
     }

@@ -37,7 +37,7 @@ class ToDoListViewModel: ObservableObject {
                 let dueDate = (data["dueDate"] as? Timestamp)?.dateValue() ?? Date.distantPast
                 let createdDate = (data["createdDate"] as? Timestamp)?.dateValue() ?? Date.distantPast
                 
-                print(title, dueDate)
+                print(title, dueDate) // To be removed
                 
                 return ToDoListItemModel(
                     id: queryDocumentSnapshot.documentID,
